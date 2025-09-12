@@ -3,69 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polizas Siconet</title>
-  <link rel="stylesheet" href="PolizasClientesSiconet.css">
-  <link rel="icon" href="https://th.bing.com/th/id/ODF.phOIinVjOrFg2calqOrstg?w=32&amp;h=32&amp;qlt=90&amp;pcl=fffffa&amp;o=6&amp;pid=1.2">
+  <title>Control de Pagos de Clientes</title>
+  <link rel="stylesheet" href="clientes.css">
 </head>
 <body>
-
-  <div class="logo">
-  <a target="_blank" href="https://www.siconet.com.mx/">
-    <img src="https://siconet.com.mx/wp-content/uploads/2016/12/transparente_2-01.png" alt="Siconet Logo">
-  </a>
-</div>
-  
-  <header>
-    <h1>Control de Pagos</h1>
+  <header class="header">
+    <h1>Control de Pagos de Clientes</h1>
   </header>
 
   <main>
-    <!-- Tabla de pagos pendientes -->
-    <section>
-      <h2>Pagos Pendientes</h2>
-      <div id="loading-overlay">Cargando...</div>
-      <table id="clientes-table">
-        <thead>
-          <tr>
-            <th>Empresa</th>
-            <th>Póliza</th>
-            <th>Fecha de Vencimiento</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Se llena dinámicamente -->
-        </tbody>
-      </table>
-    </section>
+    <button id="openModalBtn">Agregar Cliente</button>
 
-    <!-- Formulario para agregar cliente -->
-    <section>
-      <h2>Agregar Cliente</h2>
-      <form id="add-client-form">
-        <input type="text" id="empresa" placeholder="Empresa" required>
-        <select id="poliza" required>
-          <option value="">Seleccione Póliza</option>
-          <option value="Mensual">Mensual</option>
-          <option value="Trimestral">Trimestral</option>
-          <option value="Anual">Anual</option>
-          <option value="Dos años">Dos años</option>
-        </select>
-        <input type="date" id="fecha" required>
-        <button type="submit">Agregar</button>
-      </form>
-    </section>
+    <table id="clientes-table">
+      <thead>
+        <tr>
+          <th>Empresa</th>
+          <th>Póliza</th>
+          <th>Fecha de Vencimiento</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </main>
 
-   <!-- Modal -->
+  <!-- Modal para agregar cliente -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
       <h2>Agregar Cliente</h2>
       <form id="add-client-form">
-        <input type="text" id="empresa" placeholder="Empresa" required />
-        <input type="text" id="poliza" placeholder="Póliza" required />
-        <input type="date" id="fecha" placeholder="Fecha de vencimiento" required />
+        <input type="text" id="empresa" placeholder="Empresa" required>
+        <input type="text" id="poliza" placeholder="Póliza" required>
+        <input type="date" id="fecha" required>
         <button type="submit">Agregar</button>
       </form>
     </div>
@@ -76,6 +46,6 @@
     <div>Cargando...</div>
   </div>
 
-  <script src="PolizasClientesSiconet.js"></script>
+  <script src="clientes.js"></script>
 </body>
 </html>
