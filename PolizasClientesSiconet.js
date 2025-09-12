@@ -4,19 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.querySelector("#clientes-table tbody");
   const overlay = document.getElementById("loading-overlay");
 
-  // Modal
   const modal = document.getElementById("modal");
   const openModalBtn = document.getElementById("openModalBtn");
   const closeModalBtn = document.querySelector(".close");
   const form = document.getElementById("add-client-form");
 
+  // --- Modal ---
   openModalBtn.addEventListener("click", () => modal.style.display = "flex");
   closeModalBtn.addEventListener("click", () => modal.style.display = "none");
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  });
+  window.addEventListener("click", e => { if(e.target === modal) modal.style.display = "none"; });
 
-  // 🔹 Cargar todos los clientes pendientes
+  // --- Cargar clientes ---
   async function loadClientes() {
     overlay.style.display = "flex";
     tableBody.innerHTML = "";
@@ -39,10 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
           tableBody.appendChild(row);
         });
 
+        // --- Botones marcar pagado ---
         document.querySelectorAll(".btn-pagado").forEach(btn => {
           btn.addEventListener("click", async () => {
-            const index = btn.dataset.index;
             if (!confirm("¿Marcar este cliente como pagado?")) return;
+            const index = parseInt(btn.dataset.index);
             await fetch(API_URL, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -52,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         });
       }
+
     } catch (error) {
       console.error("Error cargando clientes:", error);
     }
@@ -59,34 +59,33 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.style.display = "none";
   }
 
-  // 🔹 Agregar cliente desde modal
+  // --- Agregar cliente ---
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const empresa = document.getElementById("empresa").value;
     const poliza = document.getElementById("poliza").value;
-    const fechaVenc = document.getElementById("fecha").value;
-
-    if (!empresa || !poliza || !fechaVenc) {
-      alert("Por favor completa todos los campos");
-      return;
-    }
+    const fecha = document.getElementById("fecha").value;
 
     try {
-      await fetch(API_URL, {
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "addClient", empresa, poliza, fechaVenc })
+        body: JSON.stringify({ action: "addClient", empresa, poliza, fechaVenc: fecha })
       });
-
-      form.reset();
-      modal.style.display = "none";
-      loadClientes();
+      const result = await res.json();
+      if(result.status === "ok") {
+        form.reset();
+        modal.style.display = "none";
+        loadClientes();
+      } else {
+        alert("Error: " + result.msg);
+      }
     } catch (error) {
       console.error("Error al agregar cliente:", error);
     }
   });
 
-  // 🔹 Inicial
+  // --- Inicial ---
   loadClientes();
 });
