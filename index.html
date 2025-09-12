@@ -3,49 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Control de Pagos de Clientes</title>
-  <link rel="stylesheet" href="PolizasClientesSiconet.css">
+  <title>Control de Pagos</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="header">
-    <h1>Polizas Siconet</h1>
+  <header>
+    <h1>📊 Control de Pagos de Clientes</h1>
   </header>
 
   <main>
-    <button id="openModalBtn">Agregar Cliente</button>
+    <!-- Tabla de pagos pendientes -->
+    <section>
+      <h2>Pagos Pendientes</h2>
+      <div id="loading-overlay">Cargando...</div>
+      <table id="clientes-table">
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Póliza</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Se llena dinámicamente -->
+        </tbody>
+      </table>
+    </section>
 
-    <table id="clientes-table">
-      <thead>
-        <tr>
-          <th>Empresa</th>
-          <th>Póliza</th>
-          <th>Fecha de Vencimiento</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </main>
-
-  <!-- Modal para agregar cliente -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
+    <!-- Formulario para agregar cliente -->
+    <section>
       <h2>Agregar Cliente</h2>
       <form id="add-client-form">
         <input type="text" id="empresa" placeholder="Empresa" required>
-        <input type="text" id="poliza" placeholder="Póliza" required>
+        <select id="poliza" required>
+          <option value="">Seleccione Póliza</option>
+          <option value="Mensual">Mensual</option>
+          <option value="Trimestral">Trimestral</option>
+          <option value="Anual">Anual</option>
+          <option value="Dos años">Dos años</option>
+        </select>
         <input type="date" id="fecha" required>
         <button type="submit">Agregar</button>
       </form>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <div id="loading-overlay">
-    <div class="spinner"></div>
-    <div>Cargando...</div>
-  </div>
-
-  <script src="PolizasClientesSiconet.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
