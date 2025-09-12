@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polizas Siconet</title>
+  <link rel="stylesheet" href="PolizasClientesSiconet.css">
+</head>
+<body>
+  <header>
+    <h1>Control de Pagos de Clientes</h1>
+  </header>
+
+  <main>
+    <!-- Tabla de pagos pendientes -->
+    <section>
+      <h2>Pagos Pendientes</h2>
+      <div id="loading-overlay">Cargando...</div>
+      <table id="clientes-table">
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Póliza</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Se llena dinámicamente -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Formulario para agregar cliente -->
+    <section>
+      <h2>Agregar Cliente</h2>
+      <form id="add-client-form">
+        <input type="text" id="empresa" placeholder="Empresa" required>
+        <select id="poliza" required>
+          <option value="">Seleccione Póliza</option>
+          <option value="Mensual">Mensual</option>
+          <option value="Trimestral">Trimestral</option>
+          <option value="Anual">Anual</option>
+          <option value="Dos años">Dos años</option>
+        </select>
+        <input type="date" id="fecha" required>
+        <button type="submit">Agregar</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="PolizasClientesSiconet.js"></script>
+</body>
+</html>
