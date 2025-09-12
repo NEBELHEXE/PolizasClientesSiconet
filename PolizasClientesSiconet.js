@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let clientIndex = null;
 
   // 🔗  URL de App Script
-  const API_URL = "https://script.google.com/macros/s/AKfycbzDmvEV3mMfr1IkVRVgLaLM8P2Tz2RXE2x1qCLAShQGtEneqd5VIU8RJYkZAV-TS1Hawg/exec";
+  const API_URL = "https://script.google.com/macros/s/AKfycbyz6mXZYI1mgSz7MIVSsUE3ledH6nxEXBeXLFZ55qCscjrP6ju-in1Zf5NSRTSGbXLGQA/exec";
 
   // --- Cargar clientes pendientes ---
   async function loadClients() {
