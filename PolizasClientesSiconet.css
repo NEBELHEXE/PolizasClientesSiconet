@@ -7,7 +7,7 @@ body {
 }
 
 /* --- Header --- */
-.header {
+.logo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@ body {
     z-index: 1000;
 }
 
-.header img {
+.logo img {
     height: clamp(1.5rem, 4vw, 2.5rem);
     width: auto;
     margin: 0;
