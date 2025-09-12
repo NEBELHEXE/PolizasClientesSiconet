@@ -1,158 +1,91 @@
-/* --- Reset y box sizing --- */
-* {
-  box-sizing: border-box;
+body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  transition: all 0.3s ease;
+  background: #f8f9fa;
+  color: #333;
 }
 
-/* --- Variables de color --- */
-:root {
-  --bg-body: #f4f4f4;
-  --color-text: #333;
-  --header-bg: #000099;
-  --header-color: #fff;
-  --btn-bg: #000099;
-  --btn-bg-hover: #0000cc;
-  --table-alt1: #e0e0ff;
-  --table-alt2: #c0c0ff;
-  --table-border: #000099;
-  --overlay-bg: rgba(0,0,0,0.5);
-}
-
-/* --- Body y Layout --- */
-body {
-  background-color: var(--bg-body);
-  color: var(--color-text);
+header {
+  background: #0077cc;
+  color: white;
+  padding: 1rem;
   text-align: center;
-  padding: 1rem;
 }
 
-/* --- Header --- */
-header.header {
-  background-color: var(--header-bg);
-  color: var(--header-color);
-  padding: 1rem;
-  margin-bottom: 2rem;
-}
-header.header h1 {
-  font-size: 1.8rem;
+main {
+  padding: 1.5rem;
+  max-width: 900px;
+  margin: auto;
 }
 
-/* --- Botones --- */
+h2 {
+  margin-top: 2rem;
+  color: #0077cc;
+}
+
+#clientes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#clientes-table th, 
+#clientes-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+#clientes-table th {
+  background: #0077cc;
+  color: white;
+}
+
+#clientes-table tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
 button {
-  background-color: var(--btn-bg);
+  background: #28a745;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  cursor: pointer;
   border-radius: 5px;
-}
-button:hover {
-  background-color: var(--btn-bg-hover);
-}
-
-/* --- Tabla --- */
-#clientes-table {
-  width: 90%;
-  margin: auto;
-  border-collapse: collapse;
-}
-#clientes-table th, #clientes-table td {
-  padding: 0.75rem;
-  border: 1px solid var(--table-border);
-  text-align: center;
-}
-#clientes-table th {
-  background-color: var(--header-bg);
-  color: var(--header-color);
-}
-#clientes-table tbody tr:nth-child(odd) { background-color: var(--table-alt1); }
-#clientes-table tbody tr:nth-child(even) { background-color: var(--table-alt2); }
-#clientes-table tbody tr:hover {
-  background-color: var(--btn-bg-hover);
-  color: white;
   cursor: pointer;
 }
 
-/* --- Overlay --- */
+button:hover {
+  background: #218838;
+}
+
 #loading-overlay {
   display: none;
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: var(--overlay-bg);
+  text-align: center;
+  padding: 1rem;
+  font-weight: bold;
+  color: #0077cc;
+}
+
+form {
+  margin-top: 1rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: white;
-  font-size: 1.2rem;
-  z-index: 1000;
-}
-.spinner {
-  border: 6px solid rgba(255,255,255,0.3);
-  border-top: 6px solid white;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-}
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-/* --- Modal --- */
-.modal {
-  display: none;
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: var(--overlay-bg);
-  justify-content:center;
-  align-items:center;
-  z-index: 2000;
-}
-.modal-content {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-  position: relative;
-}
-.modal-content .close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-  font-size: 1.5rem;
-}
-.modal-content input,
-.modal-content button {
-  display: block;
-  width: 100%;
-  margin-bottom: 1rem;
+form input, form select {
   padding: 0.5rem;
-}
-.modal-content button {
-  background-color: var(--btn-bg);
-  color: white;
-  border-radius: 5px;
-}
-.modal-content button:hover {
-  background-color: var(--btn-bg-hover);
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-/* --- Responsive --- */
-@media (max-width: 600px) {
-  #clientes-table { width: 100%; }
-  button, .modal-content input, .modal-content button { width: 100%; }
+form button {
+  background: #0077cc;
+}
+
+form button:hover {
+  background: #005fa3;
 }
