@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwvG_S83xlu6E6PjNzMVD9MCcKDGKkbSS4KyEcWcEMu4kIAmk96OP_Fg3yE1yJdqjBk6A/exec"; // Reemplazar con la URL publicada
+const API_URL = "https://script.google.com/macros/s/AKfycbzeNTypxdRbf2JrDh89_mKlnIbyArgjTrcP-ICEiw6IfhUjgKAV9M-_cs610W-airUBYQ/exec"; // Reemplazar con la URL publicada
 
 document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.querySelector("#clientes-table tbody");
