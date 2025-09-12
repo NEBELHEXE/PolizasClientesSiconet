@@ -2,65 +2,53 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Control de Pagos - Clientes</title>
-  <link rel="stylesheet" href="PolizasClientesSiconet.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control de Pagos</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="header">
-    <h1>Control de Pagos de Clientes</h1>
+  <header>
+    <h1>📊 Control de Pagos de Clientes</h1>
   </header>
 
   <main>
-    <!-- Formulario de cliente -->
+    <!-- Tabla de pagos pendientes -->
     <section>
-      <form id="client-form">
-        <input type="text" id="empresa" placeholder="Empresa" required>
-        <input type="text" id="poliza" placeholder="Póliza (mensual, trimestral, anual...)" required>
-        <input type="date" id="fechaVencimiento" required>
-        <button type="submit">Agregar Cliente</button>
-      </form>
-    </section>
-
-    <!-- Tabla de clientes -->
-    <section>
-      <table id="clients-table">
+      <h2>Pagos Pendientes</h2>
+      <div id="loading-overlay">Cargando...</div>
+      <table id="clientes-table">
         <thead>
           <tr>
             <th>Empresa</th>
             <th>Póliza</th>
             <th>Fecha de Vencimiento</th>
-            <th>Estado</th>
             <th>Acción</th>
           </tr>
         </thead>
         <tbody>
-          <!-- Filas dinámicas -->
+          <!-- Se llena dinámicamente -->
         </tbody>
       </table>
     </section>
+
+    <!-- Formulario para agregar cliente -->
+    <section>
+      <h2>Agregar Cliente</h2>
+      <form id="add-client-form">
+        <input type="text" id="empresa" placeholder="Empresa" required>
+        <select id="poliza" required>
+          <option value="">Seleccione Póliza</option>
+          <option value="Mensual">Mensual</option>
+          <option value="Trimestral">Trimestral</option>
+          <option value="Anual">Anual</option>
+          <option value="Dos años">Dos años</option>
+        </select>
+        <input type="date" id="fecha" required>
+        <button type="submit">Agregar</button>
+      </form>
+    </section>
   </main>
 
-  <!-- Overlay de carga -->
-  <div id="loading-overlay">
-    <div class="spinner"></div>
-    <p>Cargando...</p>
-  </div>
-
-  <!-- Modal de confirmación -->
-  <div id="modal-confirm" class="modal">
-    <div class="modal-content">
-      <p id="modal-text">¿Confirmas que este cliente ya realizó el pago?</p>
-      <div class="modal-actions">
-        <button id="confirm-yes">Sí</button>
-        <button id="confirm-no">Cancelar</button>
-      </div>
-    </div>
-  </div>
-
-  <footer class="footer">
-    <p>© 2025 Control de Pagos</p>
-  </footer>
-
-  <script src="PolizasClientesSiconet.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
