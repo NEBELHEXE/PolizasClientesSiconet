@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polizas Siconet</title>
-  <link rel="stylesheet" href="PolizasClientesSiconet.css">
+  <title>Control de Pagos</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Control de Pagos de Clientes</h1>
+  <header class="header">
+    <h1>📊 Control de Pagos de Clientes</h1>
   </header>
 
   <main>
     <!-- Tabla de pagos pendientes -->
     <section>
       <h2>Pagos Pendientes</h2>
-      <div id="loading-overlay">Cargando...</div>
+      <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Cargando datos...</p>
+      </div>
       <table id="clientes-table">
         <thead>
           <tr>
@@ -49,6 +52,17 @@
     </section>
   </main>
 
-  <script src="PolizasClientesSiconet.js"></script>
+  <!-- Modal de confirmación -->
+  <div id="modal-confirm" class="modal">
+    <div class="modal-content">
+      <p id="modal-text">¿Confirmas que este cliente ya realizó el pago?</p>
+      <div class="modal-actions">
+        <button id="confirm-yes">Sí</button>
+        <button id="confirm-no">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
