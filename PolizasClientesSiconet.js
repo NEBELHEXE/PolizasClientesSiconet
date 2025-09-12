@@ -1,101 +1,104 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbyWT6jxmPddFKk89AbGkOZSiGzYwdCPhesJcZ8rDdwpO1aAtx4OxkexK4UtYVEWluCGZQ/exec";
-
 document.addEventListener("DOMContentLoaded", () => {
-  const tableBody = document.querySelector("#clientes-table tbody");
+  const tableBody = document.querySelector("#clients-table tbody");
   const overlay = document.getElementById("loading-overlay");
-  const form = document.getElementById("add-client-form");
+  const form = document.getElementById("client-form");
 
   // Modal
   const modal = document.getElementById("modal-confirm");
-  const modalText = document.getElementById("modal-text");
   const btnYes = document.getElementById("confirm-yes");
   const btnNo = document.getElementById("confirm-no");
-  let empresaSeleccionada = null;
+  let clientIndex = null;
 
-  // 🔹 Cargar clientes pendientes
-  async function loadClientes() {
+  // 🔗  URL de App Script
+  const API_URL = "https://script.google.com/macros/s/AKfycbzDmvEV3mMfr1IkVRVgLaLM8P2Tz2RXE2x1qCLAShQGtEneqd5VIU8RJYkZAV-TS1Hawg/exec";
+
+  // --- Cargar clientes pendientes ---
+  async function loadClients() {
     overlay.style.display = "flex";
-    tableBody.innerHTML = "";
-
     try {
       const res = await fetch(`${API_URL}?action=getPendientes`);
       const data = await res.json();
 
-      if (data.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="4">✅ No hay pagos pendientes este mes</td></tr>`;
-      } else {
-        data.forEach(cliente => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${cliente.empresa}</td>
-            <td>${cliente.poliza}</td>
-            <td>${cliente.fecha}</td>
-            <td><button class="btn-pagado" data-empresa="${cliente.empresa}">Marcar Pagado</button></td>
-          `;
-          tableBody.appendChild(row);
-        });
+      tableBody.innerHTML = "";
+      data.forEach((row, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.Empresa}</td>
+          <td>${row.Poliza}</td>
+          <td>${row.FechaVencimiento}</td>
+          <td>${row.Estado}</td>
+          <td><button data-index="${index}" class="pay-btn">Marcar Pagado</button></td>
+        `;
+        tableBody.appendChild(tr);
+      });
 
-        // Agregar listeners a botones
-        document.querySelectorAll(".btn-pagado").forEach(btn => {
-          btn.addEventListener("click", () => {
-            empresaSeleccionada = btn.dataset.empresa;
-            modalText.textContent = `¿Confirmas que "${empresaSeleccionada}" ya realizó el pago?`;
-            modal.style.display = "flex";
-          });
+      // Asignar evento a los botones
+      document.querySelectorAll(".pay-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          clientIndex = e.target.getAttribute("data-index");
+          modal.style.display = "flex";
         });
-      }
-    } catch (error) {
-      console.error("Error cargando clientes:", error);
+      });
+
+    } catch (err) {
+      console.error(err);
+    } finally {
+      overlay.style.display = "none";
     }
-
-    overlay.style.display = "none";
   }
 
-  // 🔹 Confirmar modal
+  // --- Confirmar pago ---
   btnYes.addEventListener("click", async () => {
-    if (empresaSeleccionada) {
-      await marcarPagado(empresaSeleccionada);
-      empresaSeleccionada = null;
+    overlay.style.display = "flex";
+
+    try {
+      await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "marcarPagado", index: clientIndex })
+      });
       modal.style.display = "none";
-      loadClientes();
+      loadClients();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      overlay.style.display = "none";
     }
   });
 
   btnNo.addEventListener("click", () => {
-    empresaSeleccionada = null;
     modal.style.display = "none";
   });
 
-  // 🔹 Marcar cliente como pagado
-  async function marcarPagado(empresa) {
-    try {
-      await fetch(`${API_URL}?action=marcarPagado&empresa=${encodeURIComponent(empresa)}`, {
-        method: "POST"
-      });
-    } catch (error) {
-      console.error("Error al marcar pagado:", error);
-    }
-  }
-
-  // 🔹 Agregar nuevo cliente
+  // --- Agregar nuevo cliente ---
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    overlay.style.display = "flex";
 
     const empresa = document.getElementById("empresa").value;
     const poliza = document.getElementById("poliza").value;
-    const fecha = document.getElementById("fecha").value;
+    const fechaVenc = document.getElementById("fechaVencimiento").value;
 
     try {
-      await fetch(`${API_URL}?action=agregarCliente&empresa=${encodeURIComponent(empresa)}&poliza=${encodeURIComponent(poliza)}&fecha=${fecha}`, {
-        method: "POST"
+      await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "addClient",
+          empresa,
+          poliza,
+          fechaVenc
+        })
       });
+
       form.reset();
-      loadClientes();
-    } catch (error) {
-      console.error("Error al agregar cliente:", error);
+      loadClients();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      overlay.style.display = "none";
     }
   });
 
-  // 🔹 Inicial
-  loadClientes();
+  loadClients();
 });
