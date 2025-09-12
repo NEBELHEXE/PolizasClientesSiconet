@@ -57,6 +57,25 @@
     </section>
   </main>
 
+   <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Agregar Cliente</h2>
+      <form id="add-client-form">
+        <input type="text" id="empresa" placeholder="Empresa" required />
+        <input type="text" id="poliza" placeholder="Póliza" required />
+        <input type="date" id="fecha" placeholder="Fecha de vencimiento" required />
+        <button type="submit">Agregar</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+    <div>Cargando...</div>
+  </div>
+
   <script src="PolizasClientesSiconet.js"></script>
 </body>
 </html>
