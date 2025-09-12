@@ -1,4 +1,4 @@
-const API_URL = "TU_URL_DE_APP_SCRIPT_AQUI"; // Reemplazar con la URL publicada
+const API_URL = "https://script.google.com/macros/s/AKfycbyWT6jxmPddFKk89AbGkOZSiGzYwdCPhesJcZ8rDdwpO1aAtx4OxkexK4UtYVEWluCGZQ/exec"; // Reemplazar con la URL publicada
 
 document.addEventListener("DOMContentLoaded", () => {
   const tableBody = document.querySelector("#clientes-table tbody");
