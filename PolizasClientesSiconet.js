@@ -5,9 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("loading-overlay");
   const form = document.getElementById("add-client-form");
 
+  // Modal
+  const modal = document.getElementById("modal-confirm");
+  const modalText = document.getElementById("modal-text");
+  const btnYes = document.getElementById("confirm-yes");
+  const btnNo = document.getElementById("confirm-no");
+  let empresaSeleccionada = null;
+
   // 🔹 Cargar clientes pendientes
   async function loadClientes() {
-    overlay.style.display = "block";
+    overlay.style.display = "flex";
     tableBody.innerHTML = "";
 
     try {
@@ -30,9 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Agregar listeners a botones
         document.querySelectorAll(".btn-pagado").forEach(btn => {
-          btn.addEventListener("click", async () => {
-            await marcarPagado(btn.dataset.empresa);
-            loadClientes(); // recargar lista
+          btn.addEventListener("click", () => {
+            empresaSeleccionada = btn.dataset.empresa;
+            modalText.textContent = `¿Confirmas que "${empresaSeleccionada}" ya realizó el pago?`;
+            modal.style.display = "flex";
           });
         });
       }
@@ -42,6 +50,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     overlay.style.display = "none";
   }
+
+  // 🔹 Confirmar modal
+  btnYes.addEventListener("click", async () => {
+    if (empresaSeleccionada) {
+      await marcarPagado(empresaSeleccionada);
+      empresaSeleccionada = null;
+      modal.style.display = "none";
+      loadClientes();
+    }
+  });
+
+  btnNo.addEventListener("click", () => {
+    empresaSeleccionada = null;
+    modal.style.display = "none";
+  });
 
   // 🔹 Marcar cliente como pagado
   async function marcarPagado(empresa) {
