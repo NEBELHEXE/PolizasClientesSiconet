@@ -76,3 +76,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🔹 Inicial
   loadClientes();
 });
+
+// JavaScript para manejar la animación del mensaje de carga
+    document.getElementById('add-client-form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evita el envío real del formulario para la demo
+      const loadingMessage = document.getElementById('loading-message');
+      loadingMessage.classList.add('show');
+      setTimeout(() => {
+        loadingMessage.classList.remove('show');
+        // Aquí iría la lógica para agregar el cliente
+      }, 2000); // Oculta el mensaje después de 2 segundos
+    });
